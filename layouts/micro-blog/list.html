@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section id="micro-blog">
+    
+    <article>
+        <blockquote>A place for musings, observations, design notes, quick tips...
+            <br>
+            <em>thought gists</em>, if you like.
+        </blockquote>
+    </article>
+    {{ range .Pages }}
+    <article>
+        <h2>
+            <time datetime="{{ .Date }}">{{ .Date.Format "02.01.2006" }}</time>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </h2>
+        <p>
+            {{ .Content }}
+        </p>
+    </article>
+    {{ end }}
+</section>
+{{ end }}
