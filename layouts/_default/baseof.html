@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ .Site.Title }}</title>
+    <meta name="description" content="{{ .Site.Params.description }}">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', event => {
+            const navLinks = document.querySelectorAll("nav > a");
+            const currentPath = window.location.pathname.split('/')[1]; // Get the top-level path
+    
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/')[1]; // Get the top-level path of the link
+                if (linkPath === currentPath) {
+                    link.classList.add("selected");
+                    link.setAttribute("aria-current", "page"); // Improve accessibility
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1><a href="{{ .Site.BaseURL | relURL}}">{{ .Site.Title }}</a></h1>
+        <nav>
+            <a href="{{ "/micro-blog/" | relURL }}">Microblog</a>
+            <a href="{{ "/blog/" | relURL }}">Blog</a>
+            <a href="{{ "/about/" | relURL }}">About</a>
+        </nav>
+    </header>
+    <main>
+        {{ block "main" . }}{{ end }}
+    </main>
+</body>
+
+</html>
