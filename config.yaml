@@ -1,0 +1,16 @@
+baseURL: "https://abstractnonsense.xyz/"
+languageCode: "en-au"
+title: "Abstract Nonsense"
+
+params:
+  description: "A blog about Mathematics and Computer Science."
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      definitionList: true
+      extras:
+        mark:
+          enable: true
