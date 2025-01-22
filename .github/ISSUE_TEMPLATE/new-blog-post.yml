@@ -33,7 +33,7 @@ body:
       description: The external link.
       placeholder: "https://www.youtube.com/embed/example"
     validations:
-      required: true
+      required: false
   - type: textarea
     id: content
     attributes:
