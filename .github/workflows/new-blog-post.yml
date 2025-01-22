@@ -15,18 +15,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Parse Issue
+        id: issue-parser
+        uses: issue-ops/parser@v4.0.0
+        with:
+          body: ${{ github.event.issue.body }}
+          issue-form-template: 'new-blog-post.yml'
+      
+      - name: Output parsed issue JSON
+        id: output-issue
+        run: |
+          echo "\nRaw json output:\n"
+          printf "%s" "${{ steps.issue-parser.outputs.json }}"
+          
+          echo "\nParsed JSON output with jq:\n"
+          printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.'
+
+          echo "\nParsed JSON components with jq:\n"
+          TITLE=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.title')
+          DATE=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.date')
+          DESCRIPTION=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.description')
+          LINK=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.link')
+          CONTENT=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.content')
+
+          echo "\nParsed JSON output with jq:\n"
+          FILENAME=$(echo "$DATE-$TITLE.md" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -d '[:punct:]')
+
+          echo "{environment_variable_name}={value}" >> "$GITHUB_ENV"
+
+
       - name: Set up Hugo Blog post YAML frontmatter
         id: post-data
         env:
           ISSUE_BODY: "${{ github.event.issue.body }}"
         run: |
-          # Extract data from the issue body
-          TITLE=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Blog Post Title:\n).*" | sed 's/[[:space:]]*$//')
-          DATE=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Post Date:\n).*" | sed 's/[[:space:]]*$//')
-          DESCRIPTION=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Description:\n).*" | sed 's/[[:space:]]*$//')
-          LINK=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Link:\n).*" | sed 's/[[:space:]]*$//')
-          CONTENT=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Additional Content:\n).*" | sed 's/[[:space:]]*$//')
-
           # Generate post filename
           FILENAME=$(echo "$DATE-$TITLE.md" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -d '[:punct:]')
           echo "FILENAME=$FILENAME" >> $GITHUB_ENV
@@ -45,16 +67,18 @@ jobs:
           $CONTENT
           EOF
 
-      - name: Switch to preview branch
-        run: |
-          git checkout -B preview
+          cat content/micro-blog/$FILENAME
 
-      - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add content/blog/$FILENAME
-          git commit -m "Add new blog post (via Actions): $TITLE"
-          git push origin preview
+      # - name: Switch to preview branch
+      #   run: |
+      #     git checkout -B preview
+
+      # - name: Commit and push changes
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     git config --global user.name "github-actions[bot]"
+      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      #     git add content/blog/$FILENAME
+      #     git commit -m "Add new blog post (via Actions): $TITLE"
+      #     git push origin preview
