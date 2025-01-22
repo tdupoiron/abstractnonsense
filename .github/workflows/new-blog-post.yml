@@ -46,30 +46,11 @@ jobs:
           echo "CONTENT=$CONTENT" >> $GITHUB_ENV
           echo "FILENAME=$FILENAME" >> $GITHUB_ENV
 
-      # - name: Create blog post file
-      #   run: |
-      #     cat <<EOF > content/micro-blog/$FILENAME
-      #     ---
-      #     title: $TITLE
-      #     date: $DATE
-      #     description: $DESCRIPTION
-      #     link: $LINK
-      #     draft: false
-      #     ---
-
-      #     $CONTENT
-
-      #     $CONTENT2
-      #     EOF
-
-      #     cat content/micro-blog/$FILENAME
-
       - name: Create blog post file
         run: |
           {
             # Extract everything except "content" and convert it to YAML-compatible format
             echo "---"
-            echo ''
             jq 'del(.content)' "parsed_issue.json" | yq -P
             echo "---"
             echo ''
@@ -80,16 +61,16 @@ jobs:
 
           cat content/micro-blog/"$FILENAME"
 
-      # - name: Switch to preview branch
-      #   run: |
-      #     git checkout -B preview
+      - name: Switch to preview branch
+        run: |
+          git checkout -B preview
 
-      # - name: Commit and push changes
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     git config --global user.name "github-actions[bot]"
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     git add content/micro-blog/$FILENAME
-      #     git commit -m "Add new blog post (via Actions): $TITLE"
-      #     git push origin preview
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/micro-blog/"$FILENAME"
+          git commit -m "Add new blog post (via Actions): "$FILENAME""
+          git push origin preview
