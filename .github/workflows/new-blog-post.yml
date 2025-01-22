@@ -27,7 +27,7 @@ jobs:
         env:
           PARSED_ISSUE_JSON: ${{ steps.issue-parser.outputs.json }}     
         run: |
-          echo '$PARSED_ISSUE_JSON' > parsed_issue.json
+          echo "$PARSED_ISSUE_JSON" > parsed_issue.json
 
           cat parsed_issue.json
 
