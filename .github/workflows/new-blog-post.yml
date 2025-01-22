@@ -25,23 +25,17 @@ jobs:
       - name: Output parsed issue JSON
         id: output-issue
         run: |
-          echo "\nRaw json output:\n"
-          printf "%s" "${{ steps.issue-parser.outputs.json }}"
-          
-          echo "\nParsed JSON output with jq:\n"
-          printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.'
+          printf '%s' "${{ steps.issue-parser.outputs.json }}" > parsed_issue.json
 
-          echo "\nParsed JSON components with jq:\n"
-          TITLE=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.title')
-          DATE=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.date')
-          DESCRIPTION=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.description')
-          LINK=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.link')
-          CONTENT=$(printf '%s' "${{ steps.issue-parser.outputs.json }}" | jq '.content')
+          cat parsed_issue.json
 
-          echo "\nParsed JSON output with jq:\n"
+          TITLE=$(jq '.title' parsed_issue.json)
+          DATE=$(jq '.date' parsed_issue.json)
+          DESCRIPTION=$(jq '.description' parsed_issue.json)
+          LINK=$(jq '.link' parsed_issue.json)
+          CONTENT=$(jq '.content' parsed_issue.json)
+
           FILENAME=$(echo "$DATE-$TITLE.md" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -d '[:punct:]')
-
-          echo "{environment_variable_name}={value}" >> "$GITHUB_ENV"
 
 
       - name: Set up Hugo Blog post YAML frontmatter
