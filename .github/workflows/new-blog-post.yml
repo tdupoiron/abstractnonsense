@@ -22,7 +22,7 @@ jobs:
           body: ${{ github.event.issue.body }}
           issue-form-template: 'new-blog-post.yml'
       
-      - name: Output parsed issue JSON
+      - name: Set up Hugo Blog post YAML frontmatter
         id: output-issue
         env:
           PARSED_ISSUE_JSON: ${{ steps.issue-parser.outputs.json }}     
@@ -37,16 +37,13 @@ jobs:
           LINK=$(jq '.link' parsed_issue.json)
           CONTENT=$(jq '.content' parsed_issue.json)
 
-          FILENAME=$(echo "$DATE-$TITLE.md" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -d '[:punct:]')
-
-
-      - name: Set up Hugo Blog post YAML frontmatter
-        id: post-data
-        env:
-          ISSUE_BODY: "${{ github.event.issue.body }}"
-        run: |
-          # Generate post filename
-          FILENAME=$(echo "$DATE-$TITLE.md" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -d '[:punct:]')
+          FILENAME=$(echo "$DATE-$TITLE.md" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-.\n')
+           
+          echo "TITLE=$TITLE" >> $GITHUB_ENV
+          echo "DATE=$DATE" >> $GITHUB_ENV
+          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
+          echo "LINK=$LINK" >> $GITHUB_ENV
+          echo "CONTENT=$CONTENT" >> $GITHUB_ENV
           echo "FILENAME=$FILENAME" >> $GITHUB_ENV
 
       - name: Create blog post file
@@ -61,6 +58,8 @@ jobs:
           ---
 
           $CONTENT
+
+          echo $CONTENT
           EOF
 
           cat content/micro-blog/$FILENAME
@@ -75,6 +74,6 @@ jobs:
       #   run: |
       #     git config --global user.name "github-actions[bot]"
       #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     git add content/blog/$FILENAME
+      #     git add content/micro-blog/$FILENAME
       #     git commit -m "Add new blog post (via Actions): $TITLE"
       #     git push origin preview
