@@ -25,7 +25,7 @@ jobs:
       - name: Output parsed issue JSON
         id: output-issue
         run: |
-          printf '%s' "${{ steps.issue-parser.outputs.json }}" > parsed_issue.json
+          echo '${{ steps.issue-parser.outputs.json }}' > parsed_issue.json
 
           cat parsed_issue.json
 
