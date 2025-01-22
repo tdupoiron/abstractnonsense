@@ -24,8 +24,10 @@ jobs:
       
       - name: Output parsed issue JSON
         id: output-issue
+        env:
+          PARSED_ISSUE_JSON: ${{ steps.issue-parser.outputs.json }}     
         run: |
-          echo '${{ steps.issue-parser.outputs.json }}' > parsed_issue.json
+          echo '$PARSED_ISSUE_JSON' > parsed_issue.json
 
           cat parsed_issue.json
 
