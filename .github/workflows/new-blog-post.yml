@@ -19,11 +19,15 @@ jobs:
         id: post-data
         run: |
           # Extract data from the issue body
-          TITLE=$(echo "${{ github.event.issue.body }}" | grep -oP "(?<=### Blog Post Title:\n).*")
-          DATE=$(echo "${{ github.event.issue.body }}" | grep -oP "(?<=### Post Date:\n).*")
-          DESCRIPTION=$(echo "${{ github.event.issue.body }}" | grep -oP "(?<=### Description:\n).*")
-          LINK=$(echo "${{ github.event.issue.body }}" | grep -oP "(?<=### Link:\n).*")
-          CONTENT=$(echo "${{ github.event.issue.body }}" | grep -oP "(?<=### Additional Content:\n).*")
+          BODY=cat <<EOF
+          ${{ github.event.issue.body }}
+          EOF
+      
+          TITLE=$(printf "%s" "$BODY" | grep -oP "(?<=### Blog Post Title:\n).*" | sed 's/[[:space:]]*$//')
+          DATE=$(printf "%s" "$BODY" | grep -oP "(?<=### Post Date:\n).*" | sed 's/[[:space:]]*$//')
+          DESCRIPTION=$(printf "%s" "$BODY" | grep -oP "(?<=### Description:\n).*" | sed 's/[[:space:]]*$//')
+          LINK=$(printf "%s" "$BODY" | grep -oP "(?<=### Link:\n).*" | sed 's/[[:space:]]*$//')
+          CONTENT=$(printf "%s" "$BODY" | grep -oP "(?<=### Additional Content:\n).*" | sed 's/[[:space:]]*$//')
 
           # Generate post filename
           FILENAME=$(echo "$DATE-$TITLE.md" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -d '[:punct:]')
