@@ -32,10 +32,11 @@ jobs:
           cat parsed_issue.json
 
           TITLE=$(jq '.title' parsed_issue.json)
-          DATE=$(jq '.date' parsed_issue.json)
+          DATE=$(jq -r '.date' parsed_issue.json)
           DESCRIPTION=$(jq '.description' parsed_issue.json)
           LINK=$(jq '.link' parsed_issue.json)
           CONTENT=$(jq '.content' parsed_issue.json)
+          CONTENT2=$(jq -r '.content' parsed_issue.json)
 
           FILENAME=$(echo "$DATE-$TITLE.md" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-.\n')
            
@@ -44,22 +45,23 @@ jobs:
           echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
           echo "LINK=$LINK" >> $GITHUB_ENV
           echo "CONTENT=$CONTENT" >> $GITHUB_ENV
+          echo "CONTENT2=$CONTENT2" >> $GITHUB_ENV
           echo "FILENAME=$FILENAME" >> $GITHUB_ENV
 
       - name: Create blog post file
         run: |
           cat <<EOF > content/micro-blog/$FILENAME
           ---
-          title: "$TITLE"
+          title: $TITLE
           date: $DATE
-          description: "$DESCRIPTION"
-          link: "$LINK"
+          description: $DESCRIPTION
+          link: $LINK
           draft: false
           ---
 
           $CONTENT
 
-          echo $CONTENT
+          $CONTENT2
           EOF
 
           cat content/micro-blog/$FILENAME
