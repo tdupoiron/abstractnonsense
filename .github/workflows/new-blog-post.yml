@@ -36,7 +36,6 @@ jobs:
           DESCRIPTION=$(jq '.description' parsed_issue.json)
           LINK=$(jq '.link' parsed_issue.json)
           CONTENT=$(jq '.content' parsed_issue.json)
-          CONTENT2=$(jq -r '.content' parsed_issue.json)
 
           FILENAME=$(echo "$DATE-$TITLE.md" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-.\n')
            
@@ -45,26 +44,41 @@ jobs:
           echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
           echo "LINK=$LINK" >> $GITHUB_ENV
           echo "CONTENT=$CONTENT" >> $GITHUB_ENV
-          echo "CONTENT2=$CONTENT2" >> $GITHUB_ENV
           echo "FILENAME=$FILENAME" >> $GITHUB_ENV
+
+      # - name: Create blog post file
+      #   run: |
+      #     cat <<EOF > content/micro-blog/$FILENAME
+      #     ---
+      #     title: $TITLE
+      #     date: $DATE
+      #     description: $DESCRIPTION
+      #     link: $LINK
+      #     draft: false
+      #     ---
+
+      #     $CONTENT
+
+      #     $CONTENT2
+      #     EOF
+
+      #     cat content/micro-blog/$FILENAME
 
       - name: Create blog post file
         run: |
-          cat <<EOF > content/micro-blog/$FILENAME
-          ---
-          title: $TITLE
-          date: $DATE
-          description: $DESCRIPTION
-          link: $LINK
-          draft: false
-          ---
+          {
+            # Extract everything except "content" and convert it to YAML-compatible format
+            echo "---"
+            echo ''
+            jq 'del(.content)' "parsed_issue.json" | yq -P
+            echo "---"
+            echo ''
+            
+            # Inline "content" key for the body
+            jq -r '.content' "parsed_issue.json" 
+          } > content/micro-blog/"$FILENAME"
 
-          $CONTENT
-
-          $CONTENT2
-          EOF
-
-          cat content/micro-blog/$FILENAME
+          cat content/micro-blog/"$FILENAME"
 
       # - name: Switch to preview branch
       #   run: |
