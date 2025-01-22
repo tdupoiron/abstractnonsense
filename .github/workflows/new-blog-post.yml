@@ -21,10 +21,6 @@ jobs:
           ISSUE_BODY: "${{ github.event.issue.body }}"
         run: |
           # Extract data from the issue body
-          BODY=cat <<EOF
-         
-          EOF
-      
           TITLE=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Blog Post Title:\n).*" | sed 's/[[:space:]]*$//')
           DATE=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Post Date:\n).*" | sed 's/[[:space:]]*$//')
           DESCRIPTION=$(printf "%s" "$ISSUE_BODY" | grep -oP "(?<=### Description:\n).*" | sed 's/[[:space:]]*$//')
