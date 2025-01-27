@@ -64,9 +64,9 @@ jobs:
 
           cat content/micro-blog/"$FILENAME"
 
-      - name: Switch to preview branch
-        run: |
-          git checkout -B preview
+      # - name: Switch to preview branch
+      #   run: |
+      #     git checkout -B preview
 
       - name: Commit and push changes
         env:
