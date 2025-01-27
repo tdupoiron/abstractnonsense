@@ -1,5 +1,5 @@
 ---
-title: "Audiolising Graphs"
+title: "Audiolising SwiftUI Graphs"
 date: 2024-06-18
 description: "Exploring audio representation of graphs in Swift Charts."
 link: "https://www.youtube.com/embed/f-qajHmmPWQ?start=180&end=200"
