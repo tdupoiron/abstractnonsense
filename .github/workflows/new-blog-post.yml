@@ -76,4 +76,4 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add content/micro-blog/"$FILENAME"
           git commit -m "Add new blog post (via Actions): "$FILENAME""
-          git push origin preview
+          git push origin main
