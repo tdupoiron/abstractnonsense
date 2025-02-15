@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "$PARSED_ISSUE_JSON" > parsed_issue.json
 
-          echo $(jq parsed_issue.json)
+          echo $(jq '.' parsed_issue.json)
 
           TITLE=$(jq '.title' parsed_issue.json)
           DATE=$(jq -r '.date' parsed_issue.json)
@@ -78,4 +78,4 @@ jobs:
           git commit -m "Add new blog post (via Actions): "$FILENAME""
           git push origin main
 
-          gh issue comment ${{ github.event.issue.number }} --body "Added new blog post to content/micro-blog/$FILENAME"
+          gh issue comment ${{ github.event.issue.number }} --body "Added new blog post to \`content/micro-blog/$FILENAME\`"
