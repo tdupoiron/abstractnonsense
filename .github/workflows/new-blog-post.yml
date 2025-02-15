@@ -20,7 +20,7 @@ jobs:
 
       - name: Parse Issue
         id: issue-parser
-        uses: issue-ops/parser@v4.0.0
+        uses: issue-ops/parser@v4.1.0
         with:
           body: ${{ github.event.issue.body }}
           issue-form-template: 'new-blog-post.yml'
@@ -62,7 +62,7 @@ jobs:
             jq -r '.content' "parsed_issue.json" 
           } > content/micro-blog/"$FILENAME"
 
-          cat content/micro-blog/"$FILENAME"
+          cat content/micro-blog/"$FILENAME" #NOTE: for debugging
 
       # - name: Switch to preview branch
       #   run: |
@@ -77,3 +77,5 @@ jobs:
           git add content/micro-blog/"$FILENAME"
           git commit -m "Add new blog post (via Actions): "$FILENAME""
           git push origin main
+
+          gh issue comment ${{ github.event.issue.number }} --body "Added new blog post to content/micro-blog/$FILENAME"
