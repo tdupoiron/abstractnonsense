@@ -19,7 +19,8 @@ body:
       options:
         - Microblog
         - Blog
-      required: true
+      validations:
+        required: true
   - type: input
     id: date
     attributes:
