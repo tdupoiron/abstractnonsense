@@ -10,7 +10,6 @@ For example, my ["Create a blog post via a GitHub Action triggered on an Issue c
 
 ```bash
 {
-  # Extract everything except "content" and convert it to YAML-compatible format
   echo "---"
   jq 'del(.content)' "parsed_issue.json" | yq -P
   echo "---"
@@ -20,15 +19,3 @@ For example, my ["Create a blog post via a GitHub Action triggered on an Issue c
   jq -r '.content' "parsed_issue.json"
 } > content/micro-blog/"$FILENAME"
 ```
-
-# Heading 1
-
-Example content
-
-## Heading 2
-
-Example content
-
-### Heading 3
-
-Example content
