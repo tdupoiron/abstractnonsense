@@ -7,14 +7,13 @@ on:
 
 permissions:
     contents: write
+    issues: write
 
 jobs:
   create-post:
     # Restrict to my GitHub username to prevent the public from creating new blog posts
     if: github.actor == 'stochastical' && github.event.label.name == 'new-blog-post'
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
