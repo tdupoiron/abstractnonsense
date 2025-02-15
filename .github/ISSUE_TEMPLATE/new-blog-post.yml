@@ -11,6 +11,15 @@ body:
       description: The title of the blog post.
     validations:
       required: true
+   - type: dropdown
+    id: blog_section
+    attributes:
+      label: Blog Section
+      description: Choose the section of `abstractnonsense.xyz` where this post will be added
+      options:
+        - Microblog
+        - Blog
+      required: true
   - type: input
     id: date
     attributes:
