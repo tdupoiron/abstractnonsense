@@ -19,8 +19,8 @@ body:
       options:
         - Microblog
         - Blog
-      validations:
-        required: true
+    validations:
+      required: true
   - type: input
     id: date
     attributes:
