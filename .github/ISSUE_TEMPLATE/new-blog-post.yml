@@ -11,7 +11,7 @@ body:
       description: The title of the blog post.
     validations:
       required: true
-   - type: dropdown
+  - type: dropdown
     id: blog_section
     attributes:
       label: Blog Section
