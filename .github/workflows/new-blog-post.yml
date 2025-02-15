@@ -13,7 +13,8 @@ jobs:
     # Restrict to my GitHub username to prevent the public from creating new blog posts
     if: github.actor == 'stochastical' && github.event.label.name == 'new-blog-post'
     runs-on: ubuntu-latest
-
+    permissions:
+      issues: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -32,7 +33,7 @@ jobs:
         run: |
           echo "$PARSED_ISSUE_JSON" > parsed_issue.json
 
-          cat parsed_issue.json
+          echo $(jq parsed_issue.json)
 
           TITLE=$(jq '.title' parsed_issue.json)
           DATE=$(jq -r '.date' parsed_issue.json)
