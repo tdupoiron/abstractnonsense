@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/style.css">
 
     <script>
+        // Highlight the current page in the navigation bar
         document.addEventListener('DOMContentLoaded', event => {
             const navLinks = document.querySelectorAll("nav > a");
             const currentPath = window.location.pathname.split('/')[1]; // Get the top-level path
@@ -36,6 +37,13 @@
     <main>
         {{ block "main" . }}{{ end }}
     </main>
+    <!-- Add Mermaid code block rendering support -->
+    {{ if .Store.Get "hasMermaid" }}
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    {{ end }}
 </body>
 
 </html>
