@@ -9,7 +9,7 @@ link: https://github.com/eidorb/ubank
 
 In Australia, we have the [Consumer Data Right](https://www.cdr.gov.au), a government mandated interoperability standard for the Banking (and now Energy) sector.
 
-Also known as (Open Banking](https://www.ausbanking.org.au/priorities/open-banking/), the idea is to ensure that banks expose APIs that allow safe access to your transactions history and account data without having to rely on hacky methods like screen scraping[^1].
+Also known as [Open Banking](https://www.ausbanking.org.au/priorities/open-banking/), the idea is to ensure that banks expose APIs that allow safe access to your transactions history and account data without having to rely on hacky methods like screen scraping[^1].
 
 Unfortunately, due to how the standard is enforced, it's pretty tough to get access to your own transactions without going through an "approved data broker" that charges a premium for it (like [Basiq](https://www.basiq.io/home.html)), or a free app with limited export support like [Frollo](https://frollo.com.au).
 
