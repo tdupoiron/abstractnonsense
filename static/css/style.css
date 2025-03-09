@@ -20,16 +20,15 @@
 }
 
 body {
-    font-size: 18px;
     font-family: system-ui, sans-serif;
+    font-size: 18px;
     line-height: 1.4;
     color: var(--textcolor);
     background: var(--bgcolor);
     position: relative;
-    max-width: 64em;
-    /* remove this for a full-width layout */
-    margin: 0 auto;
-    /* centers the layout */
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ------- Sections ------- */
@@ -217,12 +216,12 @@ a code {
     opacity: 1;
 }
 
+/* for code samples */
 pre,
 textarea {
-    /* for code samples */
     font-size: .9em;
     color: inherit;
-    line-height: inherit;
+    line-height: 1.6;
     padding: .6em .9em;
     margin: .8em 0 1em 0;
     position: relative;
@@ -230,9 +229,9 @@ textarea {
     width: 100%;
     white-space: pre;
     border: 0;
-    border-radius: 4px;
+    border-radius: 8px;
     background: rgba(255, 255, 100, .075);
-    box-shadow: inset 1px 1px 0 rgba(0, 0, 0, .2), inset -1px -1px 0 rgba(0, 0, 0, .04);
+    overflow-x: auto; /* Add this line to make the code scrollable */
 }
 
 /* Inline footnotes */
