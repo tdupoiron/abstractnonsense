@@ -13,18 +13,18 @@ It was an exemplar of well-written technical documentation. Concise, well-writte
 
 Some learnings:
 1. It's surprisingly functional! You can implement recursive functions and use higher-order functions! For example, here's factorial in `jq`:
-```jq
-jq '[.,1]|until(.[0] < 1; [.[0] - 1, .[1] * .[0]])|.[1]'
+```bash
+$ jq '[.,1]|until(.[0] < 1; [.[0] - 1, .[1] * .[0]])|.[1]'
 ```
 2. It supports [string interpolation](https://jqlang.org/manual/#string-interpolation) - this is really nice if you're piping stuff from JSON into a string. Coupled with [format strings](https://jqlang.org/manual/#format-strings-and-escaping) this becomes frictionless:
-```jq
+```bash
 $ echo '{"search":"hello; world"}' | jq -r '@uri "https://www.google.com/search?q=\(.search)"'
 # https://www.google.com/search?q=hello%3B%20world
 ```
 3. You can define functions that accept functions[^1], and [control structures](https://jqlang.org/manual/#breaking-out-of-control-structures) that allow labelling.
-```jq
-echo '[[1,2],[10,20]]' | jq -r 'def addvalue(f): . + [f]; map(addvalue(.[0]))'
-[[1,2,1], [10,20,10]]
+```bash
+$ echo '[[1,2],[10,20]]' | jq -r 'def addvalue(f): . + [f]; map(addvalue(.[0]))'
+#[[1,2,1], [10,20,10]]
 ```
 4. You can traverse complex data structures with [first-class pathing](https://jqlang.org/manual/#path) support. And you can easily [modify nested structures](https://jqlang.org/manual/#complex-assignments) to extend objects.
 5. For the category theorists/polyglots, there's a [denotational semantics paper](https://arxiv.org/pdf/2302.10576) written about `jq`.
