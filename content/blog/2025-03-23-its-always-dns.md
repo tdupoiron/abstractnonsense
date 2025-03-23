@@ -1,24 +1,25 @@
 ---
-title: "It's always DNS \U0001F4EA\U0001FAE0"
+title: "It's always DNS"
 blog_section:
   - Microblog
 date: "2025-03-23"
 description: An ode to debugging DNS diagnostics
+link: ""
 ---
 
-I recently moved to the city. As usual, considering the technological ruin that is the [NBN](https://en.wikipedia.org/wiki/National_Broadband_Network)[^1], I was fully expecting to go another round against the ISP gods.
+I recently moved to the city. As usual, considering the technological ruin that is the [NBN](https://en.wikipedia.org/wiki/National_Broadband_Network),{{< footnote id="1" label="1" >}}[Every NBN Worker Ever...](https://www.youtube.com/watch?v=8AfEhoU44L0){{< /footnote >}}I was fully expecting to go another round against the ISP gods.
 
 I was not disappointed.
 
-My old apartment used [HFC](https://en.wikipedia.org/wiki/Hybrid_fiber-coaxial), which was ... not _bad_[^2]. But since my new apartment supported [FTTP](https://en.wikipedia.org/wiki/Fiber_to_the_x), I figured I may as well upgrade my plan.
+My old apartment used [HFC](https://en.wikipedia.org/wiki/Hybrid_fiber-coaxial), which was ... not _bad_.{{< footnote id="2" label="2" >}}When it rained, I often experienced heightened packet loss. Though I never really dug into this to see if it was just my imagination.{{< /footnote >}} But since my new apartment supported [FTTP](https://en.wikipedia.org/wiki/Fiber_to_the_x), I figured I may as well upgrade my plan.
 
 Oh boy.
 
-First up, the new apartment already had an Optus Ultra Wi-Fi Gen 2 modem-router along with a shitty Optus NBN plan[^3]. Since I'm lucky enough to get a 50% discount on [More NBN](https://www.more.com.au) through work, the first step was to switch ISPs.
+First up, the new apartment already had an Optus Ultra Wi-Fi Gen 2 modem-router along with a shitty Optus NBN plan.{{< footnote id="3" label="3" >}}I was moving into my girlfriend's apartment, and yes, _all_ Optus plans are shitty{{< /footnote >}} Since I'm lucky enough to get a 50% discount on [More NBN](https://www.more.com.au) through work, the first step was to switch ISPs.
 
 Small problem: Optus gives you the modem for "free"... if you stay with them for 36 months. ☠️. Unfortunately for them, I had _no_ intention of staying locked-in for another 24 months. So now we owed Optus ~$200 for the privilege of keeping a piece-of-shit modem. ☠️☠️.
 
-A few escalations, an increasingly tired me, multiple mentions of the [Telecommunications Industry Ombudsman](https://www.tio.com.au)[^4], and the fee was waived. They even let us keep the modem. Success?
+A few escalations, an increasingly tired me, multiple mentions of the [Telecommunications Industry Ombudsman](https://www.tio.com.au),{{< footnote id="4" label="4" >}}ISPs _really_ do hate this one simple trick.{{< /footnote >}} and the fee was waived. They even let us keep the modem. Success?
 
 Not a chance.
 
@@ -26,15 +27,13 @@ It turns out More NBN is just a reseller of Vocus NBN, which uses [PPoE](https:/
 
 Yay.
 
-One quick Facebook Marketplace sale later, and I was the proud owner of a Telstra Smart Modem Gen 2 for $40[^5]. Phew. Long day, but problem solved, right?
+One quick Facebook Marketplace sale later, and I was the proud owner of a Telstra Smart Modem Gen 2 for $40.{{< footnote id="5" label="5" >}}I actually like these modems - they've got a little 4G chip that activates if the NBN goes down. Amazingly, this also works for free even if you don't have an active Telstra NBN plan! {{< /footnote >}} Phew. Long day, but problem solved, right?
 
 Well, almost.
 
 I plug in my new modem, authenticate to my More account using the PPoE settings, fuck around with the WAN/LAN cables for a few minutes (as is tradition), hit an obligatory speed test ...
 
-Everything looks perfect - a steady 100Mb/s[^6].
-
-🏎️💨
+Everything looks perfect - a steady 100Mb/s. {{< footnote id="6" label="6" >}}Yeah, I know. 100Mb/s isn't *the* future. But it was *my* future, and I was loving every megabit of it.{{< /footnote >}} 🏎️💨
 
 I open up YouTube ... wait a few **seconds** 
 ...  
@@ -83,10 +82,3 @@ This explained the strange lag: whenever I tried to visit a new website or start
 I'm still not sure *why* this was happening, but manually changing my modem's DNS to Vocus' DNS resolver fixed all my latency woes. I actually ended up using Cloudflare's `1.1.1.1` on my Mac, and now everything's buttery smooth! 🚀
 
 Moral of the story - it's not _always_ DNS, but when it is, hopefully this helps?
-
-[^1]: [Every NBN Worker Ever...](https://www.youtube.com/watch?v=8AfEhoU44L0)
-[^2]: When it rained, I often experienced heightened packet loss. Though I never really dug into this to see if it just my imagination.
-[^3]: I was moving into my girlfriend's apartment, and yes, _all_ Optus plans are shitty.
-[^4]: ISPs _really_ do hate this one simple trick.
-[^5]: I actually like these modems - they've got a little 4G chip that activates if the NBN goes down. Amazingly, this also works for free even if you don't have an active Telstra NBN plan!
-[^6]: Yeah, I know. 100Mb/s isn't *the* future. But it was *my* future, and I was loving every megabit of it.
