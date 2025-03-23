@@ -79,3 +79,9 @@ jobs:
           git push origin main
 
           gh issue comment ${{ github.event.issue.number }} --body "Added new blog post to \`content/micro-blog/$FILENAME\`"
+
+      - name: Close issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }}
