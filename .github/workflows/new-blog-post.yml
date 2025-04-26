@@ -31,15 +31,20 @@ jobs:
           PARSED_ISSUE_JSON: ${{ steps.issue-parser.outputs.json }}     
         run: |
           echo "$PARSED_ISSUE_JSON" > parsed_issue.json
-
           echo $(jq '.' parsed_issue.json)
 
           TITLE=$(jq '.title' parsed_issue.json)
           DATE=$(jq -r '.date' parsed_issue.json)
+
+          # If DATE is not provided, use the current date in Australia/Melbourne timezone
+          if [[ -z "$DATE" || "$DATE" == "null" ]]; then
+            DATE=$(TZ=Australia/Melbourne date +%Y-%m-%d)
+          fi
+          
           DESCRIPTION=$(jq '.description' parsed_issue.json)
           LINK=$(jq '.link' parsed_issue.json)
           CONTENT=$(jq '.content' parsed_issue.json)
-            BLOG_SECTION=$(jq -r '.blog_section[0]' parsed_issue.json)
+          BLOG_SECTION=$(jq -r '.blog_section[0]' parsed_issue.json)
 
           FILENAME=$(echo "$DATE-$TITLE.md" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]-.\n')
            
