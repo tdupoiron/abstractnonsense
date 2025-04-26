@@ -1,3 +1,48 @@
+/* Tags styling */
+.post-tags {
+    margin: 0.2em 0 0.8em 0;
+}
+
+.tag {
+    display: inline-block;
+    background-color: rgba(var(--highlight), 0.1);
+    color: var(--highlight);
+    padding: 0.2em 0.8em;
+    margin-right: 0.2em;
+    margin-bottom: 0.2em;
+    border-radius: 30px;
+    font-size: 0.85em;
+    transition: background-color 0.2s ease;
+}
+
+.tag:hover {
+    background-color: var(--highlight);
+    color: var(--bgcolor);
+    border-bottom: none;
+}
+
+/* Add hashtag before each tag */
+.tag::before {
+    content: "#";
+    margin-right: 0.05em;
+    opacity: 0.8;
+    font-size: 0.85em;
+}
+
+.tags-cloud {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8em;
+}
+
+.tags-cloud li {
+    margin: 0;
+}
+
+/* default */
+
 * {
     margin: 0;
     padding: 0;
@@ -135,11 +180,11 @@ article {
 }
 
 ul {
-    list-style-type: none;
+    list-style-type: disc;
 }
 
 ul li::marker {
-    content: "\2022   ";
+    content: "";
 }
 
 li {
@@ -325,6 +370,10 @@ a[href*="//"]:after {
     opacity: .25;
 }
 
+a[href*="localhost"]::after {
+    content: none;
+  }
+
 
 a[href*="//"]:hover:after {
     color: var(--highlight);
@@ -375,7 +424,7 @@ article+article {
 
 article h2 {
     font-weight: 700;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
 }
 
 article time {

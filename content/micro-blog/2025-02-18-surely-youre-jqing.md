@@ -5,6 +5,7 @@ blog_section:
 date: "2025-02-18"
 description: Learning `jq` by reading the manual end-to-end.
 link: https://jqlang.org/manual/
+tags: ["software-engineering"]
 ---
 
 Today I read through the [`jq`](https://jqlang.org) [manual](https://jqlang.org/manual/) cover-to-cover. For those unaware, `jq` is a popular CLI tool to query and manipulate JSON. It's also a Turing-complete mini-language with nice functional semantics that fits well into the ethos of composable CLI tools.
