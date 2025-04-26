@@ -7,6 +7,7 @@
     <title>{{ .Site.Title }}</title>
     <meta name="description" content="{{ .Site.Params.description }}">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/syntax.css">
 </head>
 
 <body>
@@ -29,6 +30,9 @@
             mermaid.initialize({ startOnLoad: true });
         </script>
     {{ end }}
+    
+    <!-- Add copy-to-clipboard functionality for code blocks -->
+    <script src="/js/copy-code.js"></script>
 </body>
 
 </html>
