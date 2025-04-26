@@ -1,5 +1,6 @@
 ---
 title: btop of your resources
+date: 2025-04-26
 blog_section:
   - micro-blog
 description: 'btop: the modern terminal resource monitor with an exceptional TUI'
