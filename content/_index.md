@@ -10,7 +10,7 @@ Data Scientist by day, math enthusiast by night. Welcome to _Abstract Nonsense_!
 
 - 💭 [Microblog](/micro-blog/) - Quick thoughts, interesting finds, and daily musings
 - 🖋️ [Blog](/blog/) - Deep dives into tech, math, and everything in between
-- 🙋‍♂️ [About](/about/) - More about me and my journey
+- 🙋‍♂️ [About](/about/) - A bit about me
 
 Curious about the name?{{< footnote id="1" label="click here" >}}
 It stems from the ~~joking?~~ pejorative for the mathematical subject of
